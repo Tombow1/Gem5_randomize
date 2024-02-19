@@ -365,6 +365,7 @@ class IEW
     bool updateLSQNextCycle;
 
   private:
+
     /** Records if there is a fetch redirect on this cycle for each thread. */
     bool fetchRedirect[MaxThreads];
 
@@ -414,6 +415,7 @@ class IEW
     /** Maximum size of the skid buffer. */
     unsigned skidBufferMax;
 
+    bool randomize;
 
     struct IEWStats : public statistics::Group
     {

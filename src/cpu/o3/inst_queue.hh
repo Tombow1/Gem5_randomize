@@ -480,6 +480,8 @@ class InstructionQueue
      */
     void dumpInsts();
 
+    bool randomize;
+
     struct IQStats : public statistics::Group
     {
         IQStats(CPU *cpu, const unsigned &total_width);

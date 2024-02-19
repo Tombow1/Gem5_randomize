@@ -75,6 +75,11 @@ class BaseO3CPU(BaseCPU):
     def support_take_over(cls):
         return True
 
+    randomize = Param.Bool(
+        False,
+        "Randomization patch. Off by default.",
+    )
+
     activity = Param.Unsigned(0, "Initial count")
 
     cacheStorePorts = Param.Unsigned(

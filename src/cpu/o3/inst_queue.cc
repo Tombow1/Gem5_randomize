@@ -94,6 +94,7 @@ InstructionQueue::InstructionQueue(CPU *cpu_ptr, IEW *iew_ptr,
       numEntries(params.numIQEntries),
       totalWidth(params.issueWidth),
       commitToIEWDelay(params.commitToIEWDelay),
+      randomize(params.randomize),
       iqStats(cpu, totalWidth),
       iqIOStats(cpu)
 {
@@ -662,6 +663,22 @@ DynInstPtr
 InstructionQueue::getInstToExecute()
 {
     assert(!instsToExecute.empty());
+
+    if (randomize){
+        std::vector<DynInstPtr> instVector;
+        while (!instsToExecute.empty()) {
+            instVector.push_back(std::move(instsToExecute.front()));
+            instsToExecute.pop_front();  // Use pop_front() for std::list
+        }
+
+        std::srand(std::time(0));
+
+        std::random_shuffle(instVector.begin(), instVector.end());
+
+        for (const auto& element : instVector) {
+            instsToExecute.push_back(std::move(element));
+    }
+
     DynInstPtr inst = std::move(instsToExecute.front());
     instsToExecute.pop_front();
     if (inst->isFloating()) {
