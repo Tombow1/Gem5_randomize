@@ -48,6 +48,7 @@
 
 #include <cassert>
 #include <climits>
+#include <random>
 
 #include "debug/RubyProtocol.hh"
 #include "debug/RubySlicc.hh"
@@ -320,6 +321,15 @@ inline RequestorID
 getRequestorID(RequestPtr req)
 {
     return req->requestorId();
+}
+
+inline bool
+getRandomBool() {
+    static std::random_device rd;
+    static std::mt19937 gen(rd());
+    static std::uniform_int_distribution<> dis(0, 1);
+
+    return dis(gen) == 1;
 }
 
 } // namespace ruby

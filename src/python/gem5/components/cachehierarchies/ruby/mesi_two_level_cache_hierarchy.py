@@ -65,6 +65,7 @@ class MESITwoLevelCacheHierarchy(
         l2_size: str,
         l2_assoc: str,
         num_l2_banks: int,
+        randomize: bool,
     ):
         AbstractRubyCacheHierarchy.__init__(self=self)
         AbstractTwoLevelCacheHierarchy.__init__(
@@ -78,6 +79,7 @@ class MESITwoLevelCacheHierarchy(
         )
 
         self._num_l2_banks = num_l2_banks
+        self._randomize = randomize
 
     def incorporate_cache(self, board: AbstractBoard) -> None:
         requires(coherence_protocol_required=CoherenceProtocol.MESI_TWO_LEVEL)
@@ -105,6 +107,7 @@ class MESITwoLevelCacheHierarchy(
                 cache_line_size,
                 board.processor.get_isa(),
                 board.get_clock_domain(),
+                self._randomize,
             )
 
             cache.sequencer = RubySequencer(
@@ -140,6 +143,7 @@ class MESITwoLevelCacheHierarchy(
                 self.ruby_system.network,
                 self._num_l2_banks,
                 cache_line_size,
+                self._randomize,
             )
             for _ in range(self._num_l2_banks)
         ]

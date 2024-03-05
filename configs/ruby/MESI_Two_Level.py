@@ -109,6 +109,7 @@ def create_system(
             clk_domain=clk_domain,
             transitions_per_cycle=options.ports,
             enable_prefetch=False,
+            randomize=options.randomize,
         )
 
         cpu_seq = RubySequencer(
@@ -158,6 +159,7 @@ def create_system(
             L2cache=l2_cache,
             transitions_per_cycle=options.ports,
             ruby_system=ruby_system,
+            randomize=options.randomize,
         )
 
         exec("ruby_system.l2_cntrl%d = l2_cntrl" % i)

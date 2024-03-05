@@ -677,6 +677,7 @@ InstructionQueue::getInstToExecute()
 
         for (const auto& element : instVector) {
             instsToExecute.push_back(std::move(element));
+        }
     }
 
     DynInstPtr inst = std::move(instsToExecute.front());
