@@ -6,11 +6,9 @@
 
 This patch introduces the feature of randomization of CPU execution order. This is designed to introduce non-determinism into the execution order of instructions at the CPU level, offering a more varied simulation environment. This capability is especially beneficial for exploring the performance implications of instruction execution variability and for enhancing the robustness of systems against timing-based security attacks.
 
-### Activation
+### Build
+scons build/ARM_MESI_Two_Level/gem5.opt -j 9
 
-To enable the randomization of CPU execution order in your simulations, you need to supply the `--CPU_EXEC_RANDOMIZATION` flag when starting gem5. This flag activates the randomization mechanism, allowing the CPU to execute instructions in a non-deterministic order within the constraints of the simulation's architecture and logic.
+### Run
 
-#### Usage Example
-
-```bash
-./build/ARM/gem5.opt --CPU_EXEC_RANDOMIZATION configs/example/se.py -c tests/test-progs/hello/bin/arm/linux/hello
+build/ARM_MESI_Two_Level/gem5.opt configs/example.py --cpu_randomize --ruby_randomize
