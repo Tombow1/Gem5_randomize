@@ -12,3 +12,7 @@ scons build/ARM_MESI_Two_Level/gem5.opt -j 9
 ### Run
 
 build/ARM_MESI_Two_Level/gem5.opt configs/example.py --cpu_randomize --ruby_randomize
+
+### Extend
+
+## To activate randomization for Ruby cache system:
