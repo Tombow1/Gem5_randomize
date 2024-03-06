@@ -4,7 +4,8 @@
 
 ### Overview
 
-This patch introduces the feature of randomization of CPU execution order. It is designed to introduce non-determinism into the execution order of instructions at the CPU level, offering a more varied simulation environment. This capability is especially beneficial for exploring the performance implications of instruction execution variability and for enhancing the robustness of systems against timing-based security attacks.
+This patch introduces the feature of randomization of CPU execution order. It is designed to introduce non-determinism into the execution order of instructions at the CPU level, offering a more varied simulation environment. This capability is especially beneficial for exploring the performance implications of instruction execution variability and for enhancing the robustness of systems against timing-based security attacks. When CPU randomization is enabled, the patched gem5 simulator will randomize the order of ready-to-execute instructions in the instruction queue at the execute stage of the O3 CPU. Without this patch, the original simulator executes ready instructions in FIFO order. When ruby randomization is enabled, the patched simulator will randomly add extra cycles of latency to cache events between L1 cache and L2 cache. Currently, the chance of having a one-cycle increase is 50%.
+
 
 ### Build Instructions
 
@@ -32,7 +33,6 @@ build/ARM_MESI_Two_Level/gem5.opt configs/example.py --cpu_randomize --ruby_rand
 The provided script may not fully meet your needs, and you might find yourself wanting to write your own gem5 scripts with this patch. Here is how to do it.
 
 #### CPU randomization
-When CPU randomization is enabled, the patched gem5 simulator will randomize the order of ready-to-execute instructions in the instruction queue at the execute stage of the O3 CPU. Without this patch, the original simulator executes ready instructions in FIFO order.
 This patch supports two types of randomization: O3 CPU and Ruby cache system with MESI two-level protocol. To manually turn on CPU randomization, you can easily access and modify the `randomize` variable of the CPU object. However, this variable is patched into the m5 object, making it inaccessible for direct modification through the gem5 standard library, as the standard library's CPU classes wrap the m5 object. You can bypass this limitation through the standard library's `BaseCPUCore` type.
 
 Here's how you should configure it yourself:
@@ -44,7 +44,7 @@ basecore = BaseCPUCore(core=randomcore, isa=ISA.ARM)
 processor = BaseCPUProcessor([basecore])
 ```
 #### Ruby randomization
-When ruby randomization is enabled, the patched simulator will randomly add extra cycles of latency to cache events between L1 cache and L2 cache. Currently, the chance of having a one-cycle increase is 50%. Ruby cache system is easy and strit forward to configure. When creating the cache system, simply set randomize to true/false:
+Ruby cache system is easy and strit forward to configure. When creating the cache system, simply set randomize to true/false:
 ```bash
 cache_hierarchy = MESITwoLevelCacheHierarchy(
     l1d_size="32kB",
