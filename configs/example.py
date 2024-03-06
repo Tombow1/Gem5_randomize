@@ -26,11 +26,26 @@ parser.add_argument(
 parser.add_argument(
     "--ruby_randomize", action="store_true", help="Enable Ruby randomization"
 )
+parser.add_argument(
+    "--ruby_rand_prob",
+    type=float,
+    default=0.5,
+    metavar="N",
+    help="Probability of Ruby randomization (between 0 and 1)",
+)
+
 args = parser.parse_args()
+
+randProb = args.ruby_rand_prob
+
+if args.ruby_randomize:
+    print(f"Ruby randomization enabled with a probability of {randProb}")
+else:
+    print("Ruby randomization not enabled")
 
 cpu_randomize = args.cpu_randomize
 ruby_randomize = args.ruby_randomize
-
+randProb = 0.9
 cache_hierarchy = MESITwoLevelCacheHierarchy(
     l1d_size="32kB",
     l1d_assoc=8,
@@ -40,6 +55,7 @@ cache_hierarchy = MESITwoLevelCacheHierarchy(
     l2_assoc=16,
     num_l2_banks=2,
     randomize=ruby_randomize,
+    randProb=randProb,
 )
 
 requires(isa_required=ISA.ARM)

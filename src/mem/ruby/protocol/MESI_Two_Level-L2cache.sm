@@ -44,6 +44,7 @@ machine(MachineType:L2Cache, "MESI Directory L2 Cache CMP")
    Cycles l2_response_latency := 2;
    Cycles to_l1_latency := 1;
    bool randomize := "False";
+   float randProb := 0.5;
 
   // Message Queues
   // From local bank of L2 cache TO the network
@@ -296,7 +297,7 @@ machine(MachineType:L2Cache, "MESI Directory L2 Cache CMP")
   }
 
   Cycles getLatency(Cycles latency) {
-    if (randomize && getRandomBool()) {
+    if (randomize && getRandomBool(randProb)) {
       Cycles doubledLatency := latency;
       doubledLatency := doubledLatency + latency;
       return doubledLatency;

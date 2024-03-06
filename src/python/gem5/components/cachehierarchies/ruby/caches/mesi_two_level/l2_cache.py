@@ -44,6 +44,7 @@ class L2Cache(AbstractL2Cache):
         num_l2Caches,
         cache_line_size,
         randomize,
+        randProb,
     ):
         super().__init__(network, cache_line_size)
 
@@ -56,6 +57,7 @@ class L2Cache(AbstractL2Cache):
 
         self.transitions_per_cycle = 4
         self.randomize = randomize
+        self.randProb = randProb
 
     def getIndexBit(self, num_l2caches):
         l2_bits = int(math.log(num_l2caches, 2))

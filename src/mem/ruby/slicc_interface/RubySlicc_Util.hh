@@ -324,12 +324,12 @@ getRequestorID(RequestPtr req)
 }
 
 inline bool
-getRandomBool() {
+getRandomBool(float randProb) {
     static std::random_device rd;
     static std::mt19937 gen(rd());
-    static std::uniform_int_distribution<> dis(0, 1);
+    std::bernoulli_distribution dis(randProb);
 
-    return dis(gen) == 1;
+    return dis(gen);
 }
 
 } // namespace ruby

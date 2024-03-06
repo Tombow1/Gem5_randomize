@@ -53,6 +53,7 @@ class L1Cache(AbstractL1Cache):
         target_isa: ISA,
         clk_domain: ClockDomain,
         randomize,
+        randProb,
     ):
         """Creating L1 cache controller. Consist of both instruction
         and data cache.
@@ -79,6 +80,7 @@ class L1Cache(AbstractL1Cache):
         self.transitions_per_cycle = 4
         self.enable_prefetch = False
         self.randomize = randomize
+        self.randProb = randProb
 
     @overrides(AbstractL1Cache)
     def connectQueues(self, network):

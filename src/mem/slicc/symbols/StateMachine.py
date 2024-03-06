@@ -47,6 +47,7 @@ from slicc.symbols.Var import Var
 
 python_class_map = {
     "int": "Int",
+    "float": "Float",
     "NodeID": "Int",
     "uint32_t": "UInt32",
     "std::string": "String",
