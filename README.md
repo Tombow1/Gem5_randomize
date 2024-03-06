@@ -48,7 +48,7 @@ basecore = BaseCPUCore(core=randomcore, isa=ISA.ARM)
 processor = BaseCPUProcessor([basecore])
 ```
 #### Ruby randomization
-Ruby cache system is easy and strit forward to configure. When creating the cache system, simply set randomize to true/false:
+Ruby cache system is easy and strit forward to configure. When creating the cache system, simply set randomize to true/false with specified probability:
 ```bash
 cache_hierarchy = MESITwoLevelCacheHierarchy(
     l1d_size="32kB",
@@ -58,6 +58,7 @@ cache_hierarchy = MESITwoLevelCacheHierarchy(
     l2_size="256kB",
     l2_assoc=16,
     num_l2_banks=2,
-    randomize=ruby_randomize,
+    randomize=True,    # Turn ruby randomization on/off.
+    randomProb=0.75    # chance of random one-cycle latency increase, 0.5 by default.      
 )
 ```
