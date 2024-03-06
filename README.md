@@ -8,7 +8,7 @@ This patch introduces the feature of randomization of CPU execution order. It is
 
 * When CPU randomization is enabled, the patched gem5 simulator will randomize the order of ready-to-execute instructions in the instruction queue at the execute stage of the O3 CPU. Without this patch, the original simulator executes ready instructions in FIFO order. 
 
-* When ruby randomization is enabled, the patched simulator will randomly add extra cycles of latency to cache events between L1 cache and L2 cache. Currently, the chance of having a one-cycle increase is 50%.
+* When ruby randomization is enabled, the patched simulator will randomly add extra cycles of latency to cache events between L1 cache and L2 cache. The chance of having a one-cycle increase is 50% if not specified by the user.
 
 
 ### Build Instructions
@@ -26,10 +26,10 @@ To run the simulation with the provided example.py configuration, use the follow
 ### Running the Simulation
 To run the simulation with the provided example.py configuration, use the following command:
 ```bash
-build/ARM_MESI_Two_Level/gem5.opt configs/example.py --cpu_randomize --ruby_randomize
+build/ARM_MESI_Two_Level/gem5.opt configs/example.py --cpu_randomize --ruby_randomize <chance of extra cycle latency>
 ```
 * The **--cpu_randomize** flag enables CPU instruction execution order randomization.
-* The **--ruby_randomize** flag activates randomization within the Ruby memory system.
+* The **--ruby_randomize** flag activates randomization within the Ruby memory system, followed by the probability of having a one-cycle increase of cache events.
 * All randomization are off by default.
 
 ### Understand the Patch and Extend Yourself
