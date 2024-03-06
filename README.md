@@ -4,7 +4,11 @@
 
 ### Overview
 
-This patch introduces the feature of randomization of CPU execution order. It is designed to introduce non-determinism into the execution order of instructions at the CPU level, offering a more varied simulation environment. This capability is especially beneficial for exploring the performance implications of instruction execution variability and for enhancing the robustness of systems against timing-based security attacks. When CPU randomization is enabled, the patched gem5 simulator will randomize the order of ready-to-execute instructions in the instruction queue at the execute stage of the O3 CPU. Without this patch, the original simulator executes ready instructions in FIFO order. When ruby randomization is enabled, the patched simulator will randomly add extra cycles of latency to cache events between L1 cache and L2 cache. Currently, the chance of having a one-cycle increase is 50%.
+This patch introduces the feature of randomization of CPU execution order. It is designed to introduce non-determinism into the execution order of instructions at the CPU level, offering a more varied simulation environment. This capability is especially beneficial for exploring the performance implications of instruction execution variability and for enhancing the robustness of systems against timing-based security attacks. 
+
+* When CPU randomization is enabled, the patched gem5 simulator will randomize the order of ready-to-execute instructions in the instruction queue at the execute stage of the O3 CPU. Without this patch, the original simulator executes ready instructions in FIFO order. 
+
+* When ruby randomization is enabled, the patched simulator will randomly add extra cycles of latency to cache events between L1 cache and L2 cache. Currently, the chance of having a one-cycle increase is 50%.
 
 
 ### Build Instructions
